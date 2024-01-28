@@ -9,6 +9,8 @@ import { useState } from "react";
 import ContextualExample from "./ProgressBar";
 import { DoughnutComponent } from "./doughnut";
 import Speedometer from "./Speedometer";
+import MapComponent from "./MapContainer";
+import WardmapComponent from "./wardMap";
 
 async function fetchDataAndPopulateCards() {
   try {
@@ -164,7 +166,7 @@ const Dashboard = () => {
               <div
                 class="card"
                 style={{
-                  height: "300px",
+                  height: "59vh",
                   overflowY: "auto",
                   scrollbarWidth: "thick",
                   overflowX: "hidden",
@@ -192,13 +194,16 @@ const Dashboard = () => {
               </div>
             </div>
             {/* map card */}
-            <div class="col-md-8 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h1>Zone Map</h1>
-                </div>
-              </div>
-            </div>
+            <div className="col-md-8 grid-margin stretch-card">
+  <div className="card">
+    <div className="card-body">
+      
+     <MapComponent />
+      
+    </div>
+  </div>
+</div>
+
           </div>
 
           <div class="row">
@@ -274,7 +279,7 @@ const Dashboard = () => {
             <div class="col-md-12 col-xl-4 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Ward Map</h4>
+                  <WardmapComponent/>
                 </div>
               </div>
             </div>

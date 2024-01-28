@@ -45,7 +45,7 @@ const PaymentTable = ({ data, tableName }) => {
                                     <tr key={item.wardNo} className='content'>
                                         <td>{item.wardNo}</td>
                                         <td>{item.wardName}</td>
-                                         <td><button type="button" class="btn btn-primary btn-md">{item.percentagePaid}%</button></td> 
+                                         <td><button type="button" class="btn btn-success btn-md">{item.percentagePaid}%</button></td> 
                                     </tr>
                                 ))}
                             </tbody>

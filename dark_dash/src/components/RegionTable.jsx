@@ -6,7 +6,7 @@ const RegionTable = () => {
   // Dummy data for the paid and unpaid tables
 
   const scrollbarStyle = {
-    height: "300px",
+    height: "100%",
     overflowY: "auto",
     WebkitOverflowScrolling: "touch",
     scrollbarWidth: "thin",
