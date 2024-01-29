@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import  {Link}  from 'react-router-dom';
 
 const Navbar = () => {
   return (
@@ -7,12 +8,14 @@ const Navbar = () => {
          
           <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
             
-            
+          {/* <Link to="./complaints">complaints </Link> */}
             <ul class="navbar-nav navbar-nav-right">
-              <li class="nav-item dropdown d-none d-lg-block">
-                
-                
-              </li>
+            <li>
+          <Link to="/">Dashboard</Link>
+        </li>
+        <li>
+          <Link to="/complaints">Complaints</Link>
+        </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" id="profileDropdown" href="#" data-bs-toggle="dropdown">
                   <div class="navbar-profile">

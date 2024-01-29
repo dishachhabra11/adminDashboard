@@ -1,4 +1,3 @@
-// API to post the data on the client side 
 
 const express = require('express');
 const app = express();
@@ -17,7 +16,6 @@ app.get('/users', async (req, res) => {
     if (!users) {
       return res.status(404).json({ error: 'No data found' });
     }
-
     res.json(users);
   } 
   catch (error) {

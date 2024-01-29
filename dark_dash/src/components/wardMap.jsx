@@ -1,20 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
+import { geojsonData } from './finalsetted';
 
-const WardmapComponent = () => {
-    const [geojsonData, setGeojsonData] = useState(null);
+const WardMapComponent = () => {
+    // const [geojsonData, setGeojsonData] = useState(null);
 
-    useEffect(() => {
-        // Load GeoJSON data
-        fetch('finalsetted.geojson')
-            .then(response => response.json())
-            .then(data => setGeojsonData(data))
-            .catch(error => console.error('Error fetching GeoJSON:', error));
-    }, []);
+    // useEffect(() => {
+    //     // Load GeoJSON data
+    //     fetch('finalsetted.geojson')
+    //         .then(response => response.json())
+    //         .then(data => setGeojsonData(data))
+    //         .catch(error => console.error('Error fetching GeoJSON:', error));
+    // }, []);
+
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const response = await fetch('finalsetted.geojson');
+    //             const data = await response.json();
+    //             setGeojsonData(data);
+    //         } catch (error) {
+    //             console.error('Error map  fetching GeoJSON:', error);
+    //         }
+    //     };
+
+    //     fetchData();
+    // }, []);
 
     const highlightStyle = {
-        fillColor: 'yellow',
+        fillColor: 'red',
         color: 'black',
         weight: 2
     };
@@ -25,14 +40,14 @@ const WardmapComponent = () => {
     };
 
     return (
-        <MapContainer center={[22.7196, 75.8577]} zoom={13} style={{ height: '100%', width: '100%' }}>
+        <MapContainer center={[22.7196, 75.8577]} zoom={11} style={{ height: '100%', width: '100%' }}>
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
             {geojsonData && (
                 <GeoJSON
                     data={geojsonData}
                     style={() => ({
-                        fillColor: 'blue',
-                        color: 'red',
+                        fillColor: '#3b3b3b',
+                        color: 'black',
                         weight: 2
                     })}
                     eventHandlers={{
@@ -44,4 +59,4 @@ const WardmapComponent = () => {
     );
 };
 
-export default WardmapComponent;
+export default WardMapComponent;

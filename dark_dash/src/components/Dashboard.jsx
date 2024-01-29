@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { LineGraph } from "./LineGraph";
 import Piechart from "./Piechart";
 import RegionTable from "./RegionTable";
@@ -10,7 +10,8 @@ import ContextualExample from "./ProgressBar";
 import { DoughnutComponent } from "./doughnut";
 import Speedometer from "./Speedometer";
 import MapComponent from "./MapContainer";
-import WardmapComponent from "./wardMap";
+import WardMapComponent from "./wardMap";
+
 
 async function fetchDataAndPopulateCards() {
   try {
@@ -55,9 +56,16 @@ fetchDataAndPopulateCards();
 
 const Dashboard = () => {
   const [SelectedType, setSelectedType] = useState();
+  const [speedbtn, setspeedbtn] = useState(null);
+ 
+
+
 
   const handlebuttonclick = (taxtype) => {
     setSelectedType(taxtype);
+  };
+  const handlebtn = (taxtype) => {
+    setspeedbtn(taxtype);
   };
 
   return (
@@ -166,7 +174,7 @@ const Dashboard = () => {
               <div
                 class="card"
                 style={{
-                  height: "59vh",
+                  height: "300px",
                   overflowY: "auto",
                   scrollbarWidth: "thick",
                   overflowX: "hidden",
@@ -194,30 +202,33 @@ const Dashboard = () => {
               </div>
             </div>
             {/* map card */}
-            <div className="col-md-8 grid-margin stretch-card">
-  <div className="card">
-    <div className="card-body">
-      
-     <MapComponent />
-      
-    </div>
-  </div>
-</div>
-
+            <div class="col-md-8 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <MapComponent/>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="row">
             {/* progess chart */}
             <div class="col-sm-6 grid-margin">
               <div class="card">
-                <div class="card-body">
-                  <ContextualExample />
+              
+                <div class="card-body" style={{height:"269px",alignItems:"center"}}>
+                  <ContextualExample  />
                 </div>
               </div>
             </div>
             {/* speedo meter */}
             <div class="col-sm-6 grid-margin">
               <div class="card">
+              <div class="row" style={{justifyContent:"center",gap:"8px",marginBottom:"8px",marginTop:"8px"}}>
+              <button class="btn btn-primary btn-sm" style={{width:"100px"}} onClick={()=>{handlebtn('Garbage_Tax')}}>Garbage Tax</button>
+              <button  class="btn btn-primary btn-sm" style={{width:"100px"}} onClick={()=>{handlebtn('Property_Tax')}}>Property Tax</button>
+              <button class="btn btn-primary btn-sm" style={{width:"100px"}}  onClick={()=>{handlebtn('Water_Tax')}}>Water Tax</button>
+              </div>
                   <div class="card-body"  style={{
         width: "300px",
         height: "229px",
@@ -228,7 +239,7 @@ const Dashboard = () => {
         position:"relative",
         margin:"auto",
                       }}>
-                 <Speedometer/>
+                 <Speedometer  TaxSelected={speedbtn}/>
                 </div>
               </div>
             </div>
@@ -279,7 +290,7 @@ const Dashboard = () => {
             <div class="col-md-12 col-xl-4 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <WardmapComponent/>
+                  <WardMapComponent/>
                 </div>
               </div>
             </div>
