@@ -16,17 +16,18 @@ const Piechart = () => {
       style={{
         textAlign: "center",
          marginTop:"0px",
+        
 
       }}
     >
        {/* <div className='w-[15rem] h-[300px] p-6  bg-[#16213d]   flex flex-col flex-1 mt-5 mr-5 mb-5 items-center rounded-xl '> */}
-       <PieChart width={80} height={52} className="max-h-65 mt-5 ml-0 bg-[#16213d] ">
+       <PieChart width={80} height={42}  style={{height:"50px"}} >
         <Tooltip />
         <Pie
           data={data}
           dataKey="students"
-          outerRadius={80}
-          innerRadius={60}
+          outerRadius={60}
+          innerRadius={40}
           label={({ name, students }) => `${name}: ${students}`}
         >
           {data.map((entry, index) => (

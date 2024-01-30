@@ -9,7 +9,7 @@ import ComplaintsTable from './components/ComplaintsTable';
 function App() {
   return (
     <Router>
-      <div className='container-screen'>
+      <div className='container-screen' style={{userSelect:'none'}}>
         <SideBar />
         <div className="container-fluid">
           <Navbar />

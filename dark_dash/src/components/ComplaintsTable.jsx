@@ -1,105 +1,105 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import ComplaintBox from './ComplaintBox';
 
 const ComplaintsTable = () => {
+  const [complaintsData, setComplaintsData] = useState([]);
+
+  useEffect(() => {
+    // Fetch data from the API
+    fetch('http://localhost:8080/maps/complains')
+      .then(response => response.json())
+      .then(data => setComplaintsData(data))
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
+
+  const tableHeadingStyle = {
+	textAlign: 'center',
+	flex: 1,
+  };
+
   return (
-    <div>
-      <section class="ftco-section" style={{width:"100%",minWidth:"100vw"}}>
-		<div class="container" style={{marginTop:"10vh",padding:"30px", minWidth:"100vw"}}>
-			<div class="row justify-content-center">
-				<div class="col-md-6 text-center mb-4">
-					
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-				
-					<div class="">
-						<table class="table myaccordion table-hover" id="accordion">
-						  <thead>
-						    <tr>
-						      <th>sc.no</th>
-						      <th>Name</th>
-						      <th>PID</th>
-						      
-						      <th>Title</th>
-						      {/* <th>&nbsp;</th> */}
-						    </tr>
-						  </thead>
-						  <tbody>
-						    {/* <tr data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-						      <th scope="row">1</th>
-						      <td>Laptop Technology AS2020</td>
-						      <td>$200.00</td>
-						      <td>2</td>
-						      <td>$400.00</td>
-						      <td>
-						      	<i class="fa" aria-hidden="true"></i>
-				        	</td>
-						    </tr>
-						    <tr>
-						    	<td colspan="6" id="collapseOne" class="collapse show acc" data-parent="#accordion">
-						    		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro iste, facere sunt sequi nostrum ipsa, amet doloremque magnam reiciendis tempore sapiente. Necessitatibus recusandae harum nam sit perferendis quia inventore natus.</p>
-						    	</td>
-						    </tr> */}
-							<ComplaintBox/>
+	<div>
+	  <section className="ftco-section" style={{ width: "100%", minWidth: "100vw" }}>
+		<div className="container" style={{ marginTop: "10vh", padding: "30px", minWidth: "100vw" }}>
+		  <div className="d-flex justify-content-center row">
+			
+		 
+		  <div class="col-md-12">
+			<div class="table-responsive table-borderless">
+			  
+				<table className="table myaccordion " id="accordion" >
+				 <tbody>
+				 <tr style={{display:"flex",justifyContent:"space-between"}}>
+					  <th >Sc.No</th>
+					  <th>UID</th>
+					  <th></th>
+					  <th ></th>
+					  <th ></th>
+					  <th ></th>
+					  <th></th>
+					  <th >Title</th>
+					  <th ></th>
+					  <th></th>
+					  <th></th>
+					  <th ></th>
+					  <th >Description</th>
+					  <th ></th>
+					  <th ></th>
+					  <th></th>
+					  <th></th>
+					  
+					  <th ></th>
+					  <th ></th>
+					  <th ></th>
+					  <th ></th>
+					  <th></th>
+					  <th></th>
+					  
+					  <th ></th>
+					  <th ></th>
+					  <th></th>
+					  <th></th>
+					  
+					  <th ></th>
+					  {/* <th >Phone No.</th> */}
+					  <th></th>
+					  <th></th>
+					  
+					</tr>
+{/* 				 
+					<ComplaintBox
+						key={1}
+						sNo={"s.No"}
+						uid={"Uid"}
+						title={"Title"}
+						body={"Description"}
+						phone={"Phone No."}
+					  /> */}
+				  
+				  
+					<div>
+					{complaintsData?.map((complaint, index) => (
+					  <ComplaintBox
+						key={index}
+						sNo={index + 1}
+						uid={complaint.uid}
+						title={complaint.title}
+						phone={complaint.phone}
+						body={complaint.body}
+						
+					  />
+					))}
 
-						    <tr data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" class="collapsed">
-						      <th scope="row">2</th>
-						      <td>Laptop Technology AS2020</td>
-						      <td>$200.00</td>
-						      <td>2</td>
-						      <td>$400.00</td>
-						      <td>
-						      	<i class="fa" aria-hidden="false"></i>
-				        	</td>
-						    </tr>
-								<tr>
-						    	<td colspan="6" id="collapseTwo" class="collapse acc" data-parent="#accordion">
-						    		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro iste, facere sunt sequi nostrum ipsa, amet doloremque magnam reiciendis tempore sapiente. Necessitatibus recusandae harum nam sit perferendis quia inventore natus.</p>
-						    	</td>
-						    </tr>
-
-						    <tr data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" class="collapsed">
-						      <th scope="row">3</th>
-						      <td>Laptop Technology AS2020</td>
-						      <td>$200.00</td>
-						      <td>2</td>
-						      <td>$400.00</td>
-						      <td>
-						      	<i class="fa" aria-hidden="false"></i>
-				        	</td>
-						    </tr>
-								<tr>
-						    	<td colspan="6" id="collapseThree" class="collapse acc" data-parent="#accordion">
-						    		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro iste, facere sunt sequi nostrum ipsa, amet doloremque magnam reiciendis tempore sapiente. Necessitatibus recusandae harum nam sit perferendis quia inventore natus.</p>
-						    	</td>
-						    </tr>
-
-						    <tr data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" class="collapsed">
-						      <th scope="row">4</th>
-						      <td>Laptop Technology AS2020</td>
-						      <td>$200.00</td>
-						      <td>2</td>
-						      <td>$400.00</td>
-						      <td>
-						      	<i class="fa" aria-hidden="false"></i>
-				        	</td>
-						    </tr>
-								<tr>
-						    	<td colspan="6" id="collapseFour" class="collapse acc" data-parent="#accordion">
-						    		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro iste, facere sunt sequi nostrum ipsa, amet doloremque magnam reiciendis tempore sapiente. Necessitatibus recusandae harum nam sit perferendis quia inventore natus.</p>
-						    	</td>
-						    </tr>
-						  </tbody>
-						</table>
 					</div>
-				</div>
+					
+				  </tbody>
+				</table>
+			  </div>
 			</div>
+		  </div>
 		</div>
-	</section>
-    </div>
-  )
-}
-
-export default ComplaintsTable;
+	  </section>
+	</div>
+  );
+					}
+  export default ComplaintsTable;

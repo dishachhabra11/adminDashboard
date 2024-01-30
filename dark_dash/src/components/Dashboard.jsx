@@ -12,7 +12,6 @@ import Speedometer from "./Speedometer";
 import MapComponent from "./MapContainer";
 import WardMapComponent from "./wardMap";
 
-
 async function fetchDataAndPopulateCards() {
   try {
     const response = await fetch("http://localhost:8080/maps/markers");
@@ -39,14 +38,14 @@ async function fetchDataAndPopulateCards() {
 
     document.getElementById(
       "totalRevenueValue"
-    ).innerText = `INR ${totalRevenue}`;
-    document.getElementById("waterTaxValue").innerText = `INR ${totalWaterTax}`;
+    ).innerText = `₹ ${totalRevenue}`;
+    document.getElementById("waterTaxValue").innerText = `₹ ${totalWaterTax}`;
     document.getElementById(
       "garbageTaxValue"
-    ).innerText = `INR ${totalGarbageTax}`;
+    ).innerText = `₹ ${totalGarbageTax}`;
     document.getElementById(
       "propertyTaxValue"
-    ).innerText = `INR ${totalPropertyTax}`;
+    ).innerText = `₹ ${totalPropertyTax}`;
   } catch (error) {
     console.error("Error fetching data:", error);
   }
@@ -57,9 +56,12 @@ fetchDataAndPopulateCards();
 const Dashboard = () => {
   const [SelectedType, setSelectedType] = useState();
   const [speedbtn, setspeedbtn] = useState(null);
- 
 
+  const [wardNumber, setwardNumber] = useState(null);
 
+  const handleclick = (ward) => {
+    setwardNumber(ward);
+  };
 
   const handlebuttonclick = (taxtype) => {
     setSelectedType(taxtype);
@@ -69,7 +71,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div>
+<div style={{ cursor: "pointer", userSelect: "none" }}>
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
@@ -83,7 +85,6 @@ const Dashboard = () => {
                         <h3 class="mb-0" id="totalRevenueValue">
                           Loading...
                         </h3>
-                       
                       </div>
                     </div>
                     <div class="col-3">
@@ -106,7 +107,6 @@ const Dashboard = () => {
                         <h3 class="mb-0" id="waterTaxValue">
                           Loading...
                         </h3>
-                       
                       </div>
                     </div>
                     <div class="col-3">
@@ -129,7 +129,6 @@ const Dashboard = () => {
                         <h3 class="mb-0" id="propertyTaxValue">
                           Loading...
                         </h3>
-                        
                       </div>
                     </div>
                     <div class="col-3">
@@ -174,18 +173,17 @@ const Dashboard = () => {
               <div
                 class="card"
                 style={{
-                  height: "300px",
+                  height: "78vh",
                   overflowY: "auto",
                   scrollbarWidth: "thick",
                   overflowX: "hidden",
-                
                 }}
               >
                 <div class="card-body">
                   <RegionTable />
                 </div>
                 <style>
-        {`
+                  {`
             /* WebKit Scrollbar Styles */
             .card::-webkit-scrollbar {
                 width: 8px;
@@ -197,15 +195,14 @@ const Dashboard = () => {
                 background-color:   #333333 ;
             }
         `}
-    </style>
-
+                </style>
               </div>
             </div>
             {/* map card */}
             <div class="col-md-8 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <MapComponent/>
+                  <MapComponent />
                 </div>
               </div>
             </div>
@@ -215,40 +212,127 @@ const Dashboard = () => {
             {/* progess chart */}
             <div class="col-sm-6 grid-margin">
               <div class="card">
-              
-                <div class="card-body" style={{height:"269px",alignItems:"center"}}>
-                  <ContextualExample  />
+                <div
+                  class="card-body"
+                  style={{ height: "269px", alignItems: "center" }}
+                >
+                  <ContextualExample />
                 </div>
               </div>
             </div>
             {/* speedo meter */}
             <div class="col-sm-6 grid-margin">
               <div class="card">
-              <div class="row" style={{justifyContent:"center",gap:"8px",marginBottom:"8px",marginTop:"8px"}}>
-              <button class="btn btn-primary btn-sm" style={{width:"100px"}} onClick={()=>{handlebtn('Garbage_Tax')}}>Garbage Tax</button>
-              <button  class="btn btn-primary btn-sm" style={{width:"100px"}} onClick={()=>{handlebtn('Property_Tax')}}>Property Tax</button>
-              <button class="btn btn-primary btn-sm" style={{width:"100px"}}  onClick={()=>{handlebtn('Water_Tax')}}>Water Tax</button>
-              </div>
-                  <div class="card-body"  style={{
-        width: "300px",
-        height: "229px",
-        display:"flex",
-        
-        borderRadius:"5px",
-        justifyContent:"center",
-        position:"relative",
-        margin:"auto",
-                      }}>
-                 <Speedometer  TaxSelected={speedbtn}/>
+                <div
+                  class="row"
+                  style={{
+                    justifyContent: "center",
+                    gap: "8px",
+                    marginBottom: "8px",
+                    marginTop: "8px",
+                  }}
+                >
+                  <button
+                    class="btn btn-primary btn-sm"
+                    style={{ width: "100px" }}
+                    onClick={() => {
+                      handlebtn("");
+                    }}
+                  >
+                    Overall Tax
+                  </button>
+                  <button
+                    class="btn btn-primary btn-sm"
+                    style={{ width: "100px" }}
+                    onClick={() => {
+                      handlebtn("Garbage_Tax");
+                    }}
+                  >
+                    Garbage Tax
+                  </button>
+                  <button
+                    class="btn btn-primary btn-sm"
+                    style={{ width: "100px" }}
+                    onClick={() => {
+                      handlebtn("Property_Tax");
+                    }}
+                  >
+                    Property Tax
+                  </button>
+                  <button
+                    class="btn btn-primary btn-sm"
+                    style={{ width: "100px" }}
+                    onClick={() => {
+                      handlebtn("Water_Tax");
+                    }}
+                  >
+                    Water Tax
+                  </button>
+                </div>
+                <div
+                  class="card-body"
+                  style={{
+                    width: "300px",
+                    height: "229px",
+                    display: "flex",
+
+                    borderRadius: "5px",
+                    justifyContent: "center",
+                    position: "relative",
+                    margin: "auto",
+                  }}
+                >
+                  <Speedometer TaxSelected={speedbtn} wardNumber={wardNumber} />
+                  <div className="container">
+                    <div className="row">
+                      <div className="col-lg-12">
+                        {/* Scrollable Menu */}
+                        <div className="btn-group">
+                          <button
+                            type="button"
+                            className="btn btn-default dropdown-toggle"
+                            data-toggle="dropdown"
+                            style={{ pointer: "arrow" }}
+                          >
+                            Ward List
+                          </button>
+                          <ul
+                            className="dropdown-menu scrollable-menu"
+                            role="menu"
+                            style={{
+                              height: "auto",
+                              maxHeight: "200px",
+                              overflowX: "hidden",
+                            }}
+                          >
+                            {[...Array(10).keys()].map((index) => (
+                              <li key={index} style={{ cursor: "pointer" }}>
+                                <option
+                                  value={index + 1}
+                                  onClick={() => {
+                                    handleclick(`${index + 1}`);
+                                  }}
+                                  style={{ pointer: "default" }}
+                                >
+                                  ward {index + 1}{" "}
+                                </option>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>{" "}
                 </div>
               </div>
             </div>
           </div>
           {/* line chart */}
+          {/* line chart */}
           <div className="row ">
             <div className="col-8 grid-margin">
               <div className="card" style={{ height: "71vh" }}>
-                <div style={{ width: "100%",height:"50vh",margin:"auto"}}>
+                <div style={{ width: "100%", height: "50vh", margin: "auto" }}>
                   <LineGraph />
                 </div>
               </div>
@@ -256,17 +340,42 @@ const Dashboard = () => {
             {/* pie graph */}
             <div className="col-4 grid-margin">
               <div className="card">
-                <div class="row" style={{justifyContent:"center",gap:"8px",marginBottom:"8px",marginTop:"8px"}}>
-              <button type="button" class="btn btn-primary btn-sm" style={{width:"80px"}} onClick={() => {
-                    handlebuttonclick("Paid");
-                  }}>Paid</button>
-               
-               <button type="button" class="btn btn-primary btn-sm" style={{width:"80px"}}  onClick={() => {
-                    handlebuttonclick("UnPaid");
-                  }} >Unpaid</button>
-               </div>
+                <div
+                  class="row"
+                  style={{
+                    justifyContent: "center",
+                    gap: "8px",
+                    marginBottom: "8px",
+                    marginTop: "8px",
+                  }}
+                >
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-sm"
+                    style={{ width: "80px" }}
+                    onClick={() => {
+                      handlebuttonclick("Paid");
+                    }}
+                  >
+                    Paid
+                  </button>
 
-                <DoughnutComponent SetType={SelectedType} />
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-sm"
+                    style={{ width: "80px" }}
+                    onClick={() => {
+                      handlebuttonclick("UnPaid");
+                    }}
+                  >
+                    Unpaid
+                  </button>
+                </div>
+
+                <DoughnutComponent
+                  SetType={SelectedType}
+                  style={{ marginBottom: "9px" }}
+                />
               </div>
             </div>
           </div>
@@ -290,7 +399,7 @@ const Dashboard = () => {
             <div class="col-md-12 col-xl-4 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <WardMapComponent/>
+                  <WardMapComponent />
                 </div>
               </div>
             </div>
