@@ -157,7 +157,7 @@ const WardMap = () => {
         src="https://datawrapper.dwcdn.net/PF010/1/"
         scrolling="no"
         frameBorder="0"
-        style={{ width: "50%", minWidth: "50%", border: "none" }}
+        style={{ width: "50%", minWidth: "60%",minHeight:"30%", border: "none" }}
         height="400"
         data-external="1"
       ></iframe>
