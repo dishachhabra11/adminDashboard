@@ -5,8 +5,6 @@ import { Doughnut as DoughnutChart } from 'react-chartjs-2';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export function DoughnutComponent({ SetType }) {
-
-    
   const [data, setData] = useState([]);
 
   useEffect(() => {

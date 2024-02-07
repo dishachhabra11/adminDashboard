@@ -61,20 +61,13 @@ const ComplaintsTable = () => {
 					  <th></th>
 					  
 					  <th ></th>
-					  {/* <th >Phone No.</th> */}
+					 
 					  <th></th>
 					  <th></th>
 					  
 					</tr>
-{/* 				 
-					<ComplaintBox
-						key={1}
-						sNo={"s.No"}
-						uid={"Uid"}
-						title={"Title"}
-						body={"Description"}
-						phone={"Phone No."}
-					  /> */}
+			 
+					
 				  
 				  
 					<div>
@@ -99,6 +92,7 @@ const ComplaintsTable = () => {
 		  </div>
 		</div>
 	  </section>
+	  
 	</div>
   );
 					}

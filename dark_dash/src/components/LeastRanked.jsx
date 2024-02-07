@@ -74,16 +74,20 @@ const UTable = () => {
     
 
     return (
-        <div className="app">
+        
             <UnpaidTable data={unpaidData} tableName="Paid" />
        
-        </div>
+       
     );
 };
 
 const UnpaidTable = ({ data, tableName }) => {
     return (
-        <div>
+
+        <div class="col-md-6 col-xl-4 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+          <div>
             <div class="card">
                 <div class="card-body">
                     <h4>Least paying wards</h4>
@@ -110,6 +114,10 @@ const UnpaidTable = ({ data, tableName }) => {
                 </div>
             </div>
         </div>
+          </div>
+        </div>
+      </div>
+        
     );
 };
 

@@ -86,7 +86,11 @@ const WardMap = () => {
   }, []);
 
   return (
-    <div>
+
+    <div class="col-md-12 col-xl-4 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                <div>
       <iframe
         title="Ward Map"
         aria-label="Map"
@@ -99,6 +103,10 @@ const WardMap = () => {
         data-external="1"
       ></iframe>
     </div>
+                </div>
+              </div>
+            </div>
+    
   );
 };
 

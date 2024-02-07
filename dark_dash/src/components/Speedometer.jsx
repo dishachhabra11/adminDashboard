@@ -2,8 +2,22 @@ import React, { useState, useEffect } from 'react';
 import ReactSpeedometer from 'react-d3-speedometer';
 import WardMeter from './wardmeter';
 
-const Speedometer = ({ TaxSelected ,wardNumber}) => {
+const Speedometer = ({ TaxSelected}) => {
   const [data, setData] = useState([]);
+  const [SelectedType, setSelectedType] = useState();
+  const [speedbtn, setspeedbtn] = useState(null);
+
+  const [wardNumber, setwardNumber] = useState(null);
+
+  const handlebtn = (taxtype) => {
+    setspeedbtn(taxtype);
+  };
+
+  const handleclick = (ward) => {
+    setwardNumber(ward);
+  };
+
+
 
   console.log("sppedometer",wardNumber)
 
@@ -81,16 +95,11 @@ const Speedometer = ({ TaxSelected ,wardNumber}) => {
       const wardDataFiltered = data.filter((entry) => entry.ward === String(wardNumber));
       const totalEntries = wardDataFiltered.length;
 
-      // Calculate total sum paid for Water Tax
-      // const totalWaterTax = ((wardDataFiltered.reduce(( entry) => entry.Water_Tax!==0))/totalEntries)*100;
+     
       const totalWaterTax = (wardDataFiltered.filter(entry => entry.Water_Tax !== 0).length)/totalEntries * 100;
       const totalGarbageTax = (wardDataFiltered.filter(entry => entry.Garbage_Tax !== 0).length)/totalEntries * 100;;
       const totalPropertyTax = (wardDataFiltered.filter(entry => entry.Property_Tax !== 0).length)/totalEntries * 100;
-      // const totalGarbageTax = ((wardDataFiltered.reduce(( entry) => entry.Garbage_Tax!==0))/totalEntries)*100;
-      // const totalPropertyTax = ((wardDataFiltered.reduce(( entry) => entry.Property_Tax!==0))/totalEntries)*100;
-  
-      // console.log(`${wardNumber} ka ${totalGarbageTax}, ${totalWaterTax}, ${totalPropertyTax} or ${totalEntries}`);
-      // Render based on TaxSelected
+      
       if (TaxSelected === 'Water_Tax') {
           return (
             <>
@@ -240,7 +249,115 @@ const Speedometer = ({ TaxSelected ,wardNumber}) => {
   
   return (
     <>
-      {renderSpeedometer()}
+    <div class="col-sm-6 grid-margin">
+              <div class="card">
+                <div
+                  class="row"
+                  style={{
+                    justifyContent: "center",
+                    gap: "8px",
+                    marginBottom: "8px",
+                    marginTop: "8px",
+                  }}
+                >
+                  <button
+                    class="btn btn-primary btn-sm"
+                    style={{ width: "100px" }}
+                    onClick={() => {
+                      handlebtn("");
+                    }}
+                  >
+                    Overall Tax
+                  </button>
+                  <button
+                    class="btn btn-primary btn-sm"
+                    style={{ width: "100px" }}
+                    onClick={() => {
+                      handlebtn("Garbage_Tax");
+                    }}
+                  >
+                    Garbage Tax
+                  </button>
+                  <button
+                    class="btn btn-primary btn-sm"
+                    style={{ width: "100px" }}
+                    onClick={() => {
+                      handlebtn("Property_Tax");
+                    }}
+                  >
+                    Property Tax
+                  </button>
+                  <button
+                    class="btn btn-primary btn-sm"
+                    style={{ width: "100px" }}
+                    onClick={() => {
+                      handlebtn("Water_Tax");
+                    }}
+                  >
+                    Water Tax
+                  </button>
+                </div>
+                <div
+                  class="card-body"
+                  style={{
+                    width: "300px",
+                    height: "229px",
+                    display: "flex",
+
+                    borderRadius: "5px",
+                    justifyContent: "center",
+                    position: "relative",
+                    margin: "auto",
+                  }}
+                >
+                   {renderSpeedometer()}
+                  <div className="container">
+                    <div className="row">
+                      <div className="col-lg-12">
+                        {/* Scrollable Menu */}
+                        <div className="btn-group">
+                          <button
+                            type="button"
+                            className="btn btn-default dropdown-toggle"
+                            data-toggle="dropdown"
+                            style={{ pointer: "arrow" }}
+                          >
+                            Ward List
+                          </button>
+                          <ul
+                            className="dropdown-menu scrollable-menu"
+                            role="menu"
+                            style={{
+                              height: "auto",
+                              maxHeight: "200px",
+                              overflowX: "hidden",
+                            }}
+                          >
+                            {[...Array(10).keys()].map((index) => (
+                              <li key={index} style={{ cursor: "pointer" }}>
+                                <option
+                                  value={index + 1}
+                                  onClick={() => {
+                                    handleclick(`${index + 1}`);
+                                  }}
+                                  style={{ pointer: "default" }}
+                                >
+                                  ward {index + 1}{" "}
+                                </option>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>{" "}
+                </div>
+              </div>
+            </div>
+
+     
+
+
     </>
   );
   }

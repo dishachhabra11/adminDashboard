@@ -4,11 +4,41 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Login from './components/Login/Login';
+import Dashboard from './components/Dashboard';
+import Layout from './components/Layout';
+import ComplaintsTable from './components/ComplaintsTable';
+
+
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+
+const router = createBrowserRouter([
+  {
+    path: "/login",
+    element: <Login/>,
+  },
+  {
+    path: "/",
+    element: <Layout/>,
+    children:[{
+      path:"",
+      element:<Dashboard/>
+    },{
+      path:"complaints",
+      element:<ComplaintsTable/>
+    }]
+  },
+
+]);
+
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App/>
+     <RouterProvider router={router} />
   </React.StrictMode>
 );
 

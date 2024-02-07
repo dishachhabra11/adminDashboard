@@ -68,7 +68,18 @@ const RegionTable = () => {
 
 const RegionTableData = ({ data }) => {
   return (
-    <div className="card" style={{ height: "100%", overflow: "auto" }}>
+<div class="col-md-3 grid-margin stretch-card">
+              <div
+                class="card"
+                style={{
+                  height: "78vh",
+                  overflowY: "auto",
+                  scrollbarWidth: "thick",
+                  overflowX: "hidden",
+                }}
+              >
+                <div class="card-body">
+                <div className="card" style={{ height: "100%", overflow: "auto" }}>
       <div className="card-body">
         <h4 style={{ position: "sticky" }}>Ward List</h4>
         <table className="table">
@@ -89,6 +100,25 @@ const RegionTableData = ({ data }) => {
         </table>
       </div>
     </div>
+                </div>
+                <style>
+                  {`
+            /* WebKit Scrollbar Styles */
+            .card::-webkit-scrollbar {
+                width: 8px;
+            }
+            .card::-webkit-scrollbar-thumb {
+                background-color: #555555;
+            }
+            .card::-webkit-scrollbar-track {
+                background-color:   #333333 ;
+            }
+        `}
+                </style>
+              </div>
+            </div>
+
+    
   );
 };
 

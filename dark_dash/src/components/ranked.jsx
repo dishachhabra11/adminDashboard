@@ -18,10 +18,18 @@ const Table = () => {
     
 
     return (
-        <div className="app">
-            <PaymentTable data={paidData} tableName="Paid" />
        
-        </div>
+            
+            <div class="col-md-6 col-xl-4 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                <PaymentTable data={paidData} tableName="Paid" />
+                </div>
+              </div>
+            </div>
+            
+       
+       
     );
 };
 
