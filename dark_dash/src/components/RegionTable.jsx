@@ -79,7 +79,7 @@ const RegionTableData = ({ data }) => {
                 }}
               >
                 <div class="card-body">
-                <div className="card" style={{ height: "100%", overflow: "auto" }}>
+                <div className="card" style={{ height: "100%", overflow: "auto"  }}>
       <div className="card-body">
         <h4 style={{ position: "sticky" }}>Ward List</h4>
         <table className="table">

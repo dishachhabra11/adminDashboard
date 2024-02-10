@@ -151,7 +151,7 @@ const WardMap = () => {
   return (
 
     <div class="col-md-6 grid-margin stretch-card">
-    <div class="card">
+    <div class="card" >
       <div class="card-body">
       <div>
       <iframe

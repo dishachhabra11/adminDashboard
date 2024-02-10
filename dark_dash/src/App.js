@@ -6,37 +6,35 @@ import Navbar from "./components/Navbar";
 import Dashboard from "./components/Dashboard";
 import ComplaintsTable from "./components/ComplaintsTable";
 import Login from "./components/Login/Login";
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./components/Layout";
+import DataTable from "./components/tablematerial";
+import Tablenew from "./components/Tablenew";
 
-
- export const router = createBrowserRouter([
+export const router = createBrowserRouter([
   {
     path: "/login",
-    element: <Login/>,
+    element: <Login />,
   },
   {
     path: "/",
-    element: <Layout/>,
-    children:[{
-      path:"",
-      element:<Dashboard/>
-    },{
-      path:"complaints",
-      element:<ComplaintsTable/>
-    }]
+    element: <Layout />,
+    children: [
+      {
+        path: "",
+        element: <Dashboard />,
+      },
+      {
+        path: "complaints",
+        element: <Tablenew/>,
+      },
+    ],
   },
-
 ]);
 
 function App() {
-  return (
-    
-
-{/* <Router>
+  return {
+    /* <Router>
 <Routes>
 
 
@@ -59,9 +57,8 @@ function App() {
   } />
 </Routes>
     </Router>
-    */}
-    
-  );
+    */
+  };
 }
 
 export default App;

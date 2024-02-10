@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import ReactSpeedometer from 'react-d3-speedometer';
 import WardMeter from './wardmeter';
 
-const Speedometer = ({ TaxSelected}) => {
-  const [data, setData] = useState([]);
+const Speedometer = ({ TaxSelected,data}) => {
+  // const [data, setData] = useState([]);
   const [SelectedType, setSelectedType] = useState();
   const [speedbtn, setspeedbtn] = useState(null);
-
   const [wardNumber, setwardNumber] = useState(null);
 
   const handlebtn = (taxtype) => {
@@ -16,29 +15,7 @@ const Speedometer = ({ TaxSelected}) => {
   const handleclick = (ward) => {
     setwardNumber(ward);
   };
-
-
-
   console.log("sppedometer",wardNumber)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:8080/maps/markers');
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const fetchedData = await response.json();
-        setData(fetchedData);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   const calculatePaidTaxes = (taxKey) => {
     if (!data || data.length === 0) {
@@ -94,8 +71,6 @@ const Speedometer = ({ TaxSelected}) => {
     {
       const wardDataFiltered = data.filter((entry) => entry.ward === String(wardNumber));
       const totalEntries = wardDataFiltered.length;
-
-     
       const totalWaterTax = (wardDataFiltered.filter(entry => entry.Water_Tax !== 0).length)/totalEntries * 100;
       const totalGarbageTax = (wardDataFiltered.filter(entry => entry.Garbage_Tax !== 0).length)/totalEntries * 100;;
       const totalPropertyTax = (wardDataFiltered.filter(entry => entry.Property_Tax !== 0).length)/totalEntries * 100;
@@ -250,7 +225,7 @@ const Speedometer = ({ TaxSelected}) => {
   return (
     <>
     <div class="col-sm-6 grid-margin">
-              <div class="card">
+              <div class="card" >
                 <div
                   class="row"
                   style={{

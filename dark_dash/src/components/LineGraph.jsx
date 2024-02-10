@@ -53,7 +53,7 @@ const monthNames = [
   "December",
 ];
 
-export function LineGraph() {
+export function LineGraph({data}) {
   const [chartData, setChartData] = useState({
     labels: monthNames,
     datasets: [
@@ -99,14 +99,13 @@ export function LineGraph() {
       },
     ],
   });
+  const apiData = data;
+  // console.log("linegraph data",apiData);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Replace 'your-api-endpoint' with the actual API endpoint
-        const response = await fetch('http://localhost:8080/maps/markers');
-        const apiData = await response.json();
-
+       
         apiData.forEach((item) => {
           const monthIndex = monthNames.indexOf(item['Month ']);
 
@@ -140,6 +139,15 @@ export function LineGraph() {
     fetchData();
   }, []); // Empty dependency array means this effect runs once when the component mounts
 
-  return <Line options={options} data={chartData} />
+  return(<>
+   <div className="col-8 grid-margin">
+              <div className="card" style={{ height: "71vh" }}>
+                <div style={{ width: "100%", height: "50vh", margin: "auto" }}>
+                <Line options={options} data={chartData} />
+                </div>
+                </div>
+                </div>
+
+  </>); 
   ;
 }

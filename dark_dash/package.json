@@ -13,6 +13,8 @@
     "axios": "^1.6.7",
     "bootstrap-icons": "^1.11.3",
     "chart.js": "^4.4.1",
+    "chroma": "^0.0.1",
+    "chroma-js": "^2.4.2",
     "leaflet-css": "^0.1.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.0",
@@ -25,6 +27,7 @@
     "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.21.3",
     "react-scripts": "^5.0.1",
+    "react-top-loading-bar": "^2.3.1",
     "recharts": "^2.10.4",
     "web-vitals": "^3.5.2"
   },

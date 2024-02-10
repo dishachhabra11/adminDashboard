@@ -85,10 +85,10 @@ const UnpaidTable = ({ data, tableName }) => {
     return (
 
         <div class="col-md-6 col-xl-4 grid-margin stretch-card">
-        <div class="card">
+        <div class="card" >
           <div class="card-body">
           <div>
-            <div class="card">
+            <div class="card" >
                 <div class="card-body">
                     <h4>Least paying wards</h4>
                     <div>

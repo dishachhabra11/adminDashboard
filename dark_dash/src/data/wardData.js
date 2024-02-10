@@ -11,7 +11,7 @@ export const wardData=[
     { wardNo: "Ward 10", wardName: " bhagirath pura" },
     { wardNo: "Ward 11", wardName: "govind colony " },
     { wardNo: "Ward 12", wardName: "govind colony " },
-    { wardNo: "Ward 13", wardName: "sangam nagar " },
+    { wardNo: "Ward13", wardName: "sangam nagar " },
     { wardNo: "Ward 14", wardName: "ashok nagar" },
     { wardNo: "Ward 15", wardName: "bijasan" },
     { wardNo: "Ward 16", wardName: "nandbagh" },

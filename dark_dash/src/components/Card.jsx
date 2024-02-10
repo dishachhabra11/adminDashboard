@@ -13,7 +13,7 @@ function Card({TG,TP,TW}) {
         <div class="row">
             <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
               {/* card 1 */}
-              <div class="card">
+              <div class="card " >
                 <div class="card-body">
                   <div class="row">
                     <div class="col-9">
@@ -57,7 +57,7 @@ function Card({TG,TP,TW}) {
             </div>
             <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
               {/* card 3 */}
-              <div class="card">
+              <div class="card" >
                 <div class="card-body">
                   <div class="row">
                     <div class="col-9">
@@ -79,7 +79,7 @@ function Card({TG,TP,TW}) {
             </div>
             <div class="col-xl-3 col-sm-6 grid-margin stretch-card">
               {/* card 4 */}
-              <div class="card">
+              <div class="card" >
                 <div class="card-body">
                   <div class="row">
                     <div class="col-9">
