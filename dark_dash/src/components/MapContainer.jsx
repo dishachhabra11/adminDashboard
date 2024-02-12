@@ -124,10 +124,9 @@
 
 // export default WardMapComponent;
 
+import React, { useEffect } from "react";
 
-import React, { useEffect } from 'react';
-
-const WardMap = () => {
+const WardMap = ({ theme }) => {
   useEffect(() => {
     const handleMessage = (event) => {
       if (event.data["datawrapper-height"]) {
@@ -149,31 +148,31 @@ const WardMap = () => {
   }, []);
 
   return (
-
     <div class="col-md-6 grid-margin stretch-card">
-    <div class="card" >
-      <div class="card-body">
-      <div>
-      <iframe
-        title="Ward Map"
-        aria-label="Map"
-        id="datawrapper-chart-PF010"
-        src="https://datawrapper.dwcdn.net/PF010/1/"
-        scrolling="no"
-        frameBorder="0"
-        style={{ width: "50%", minWidth: "60%",minHeight:"30%", border: "none" }}
-        height="400"
-        data-external="1"
-      ></iframe>
-    </div>
+      <div class={`card ${theme === "light" ? "bg-lavender text-black" : ""}`}>
+        <div class="card-body">
+          <div>
+            <iframe
+              title="Ward Map"
+              aria-label="Map"
+              id="datawrapper-chart-PF010"
+              src="https://datawrapper.dwcdn.net/PF010/1/"
+              scrolling="no"
+              frameBorder="0"
+              style={{
+                width: "50%",
+                minWidth: "60%",
+                minHeight: "30%",
+                border: "none",
+              }}
+              height="400"
+              data-external="1"
+            ></iframe>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-    
   );
 };
 
 export default WardMap;
-
-
-

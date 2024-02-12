@@ -7,6 +7,7 @@ import Login from "./components/Login/Login";
 import Dashboard from "./components/Dashboard";
 import Layout from "./components/Layout";
 import ComplaintsTable from "./components/ComplaintsTable";
+import { ThemeProvider } from "./components/ThemeContext";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import DataTable from "./components/tablematerial";
@@ -35,7 +36,9 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ThemeProvider>
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </React.StrictMode>
 );
 

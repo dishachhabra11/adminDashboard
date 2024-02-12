@@ -2,7 +2,7 @@ import React from "react";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import "./RegionList.css";
 
-const RegionTable = () => {
+const RegionTable = ({ theme }) => {
   // Dummy data for the paid and unpaid tables
 
   const scrollbarStyle = {
@@ -57,52 +57,64 @@ const RegionTable = () => {
     { wardNo: "Ward 42", wardName: "swami vivekanand" },
     { wardNo: "Ward 43", wardName: "Shree Nager" },
     { wardNo: "Ward 44", wardName: "HIG" },
-  
-
 
     // Add more data as needed
   ];
 
-  return <RegionTableData data={regionData} />;
+  return <RegionTableData data={regionData} theme={theme} />;
 };
 
-const RegionTableData = ({ data }) => {
+const RegionTableData = ({ data, theme }) => {
   return (
-<div class="col-md-3 grid-margin stretch-card">
-              <div
-                class="card"
-                style={{
-                  height: "78vh",
-                  overflowY: "auto",
-                  scrollbarWidth: "thick",
-                  overflowX: "hidden",
-                }}
-              >
-                <div class="card-body">
-                <div className="card" style={{ height: "100%", overflow: "auto"  }}>
-      <div className="card-body">
-        <h4 style={{ position: "sticky" }}>Ward List</h4>
-        <table className="table">
-          <thead>
-            <tr className="content">
-              <th>ward No.</th>
-              <th>ward Name</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((item) => (
-              <tr key={item.wardNo} className="content">
-                <td>{item.wardNo}</td>
-                <td>{item.wardName}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-                </div>
-                <style>
-                  {`
+    <div class="col-md-3 grid-margin stretch-card">
+      <div
+        class={`card ${theme === "light" ? "bg-lavender text-black" : ""}`}
+        style={{
+          height: "78vh",
+          overflowY: "auto",
+          scrollbarWidth: "thick",
+          overflowX: "hidden",
+        }}
+      >
+        <div class="card-body">
+          <div
+            className={`card ${
+              theme === "light" ? "bg-lavender text-black" : ""
+            }`}
+            style={{ height: "100%", overflow: "auto" }}
+          >
+            <div className="card-body">
+              <h4 style={{ position: "sticky" }}>Ward List</h4>
+              <table className="table">
+                <thead>
+                  <tr className="content">
+                    <th className={`${theme === "light" ? "text-black" : ""}`}>
+                      Ward No.
+                    </th>
+                    <th className={`${theme === "light" ? "text-black" : ""}`}>
+                      Ward Name
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.map((item) => (
+                    <tr
+                      key={item.wardNo}
+                      className={`${
+                        theme === "light" ? "text-black content" : "content"
+                      }`}
+                    >
+                      <td>{item.wardNo}</td>
+                      <td>{item.wardName}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <style>
+          {`
             /* WebKit Scrollbar Styles */
             .card::-webkit-scrollbar {
                 width: 8px;
@@ -114,11 +126,9 @@ const RegionTableData = ({ data }) => {
                 background-color:   #333333 ;
             }
         `}
-                </style>
-              </div>
-            </div>
-
-    
+        </style>
+      </div>
+    </div>
   );
 };
 

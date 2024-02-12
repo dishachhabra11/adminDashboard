@@ -53,7 +53,7 @@ const monthNames = [
   "December",
 ];
 
-export function LineGraph({data}) {
+export function LineGraph({ data, theme }) {
   const [chartData, setChartData] = useState({
     labels: monthNames,
     datasets: [
@@ -105,9 +105,8 @@ export function LineGraph({data}) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-       
         apiData.forEach((item) => {
-          const monthIndex = monthNames.indexOf(item['Month ']);
+          const monthIndex = monthNames.indexOf(item["Month "]);
 
           if (monthIndex !== -1) {
             chartData.datasets[0].data[monthIndex] +=
@@ -139,15 +138,20 @@ export function LineGraph({data}) {
     fetchData();
   }, []); // Empty dependency array means this effect runs once when the component mounts
 
-  return(<>
-   <div className="col-8 grid-margin">
-              <div className="card" style={{ height: "71vh" }}>
-                <div style={{ width: "100%", height: "50vh", margin: "auto" }}>
-                <Line options={options} data={chartData} />
-                </div>
-                </div>
-                </div>
-
-  </>); 
-  ;
+  return (
+    <>
+      <div className="col-8 grid-margin">
+        <div
+          className={`card ${
+            theme === "light" ? "bg-lavender text-black" : ""
+          }`}
+          style={{ height: "71vh" }}
+        >
+          <div style={{ width: "100%", height: "50vh", margin: "auto" }}>
+            <Line options={options} data={chartData} />
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }

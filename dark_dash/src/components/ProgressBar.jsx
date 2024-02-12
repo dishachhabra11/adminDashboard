@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from "react";
 import ProgressBar from "react-bootstrap/ProgressBar";
 
-function ContextualExample({data}) {
-  console.log("Progress bar data",data);
+function ContextualExample({ data, theme }) {
+  console.log("Progress bar data", data);
 
   const calculateUnpaidTaxes = (taxKey) => {
     if (!data || data?.length === 0) {
       return 0;
-    }
-    else{
+    } else {
       return data.filter((entry) => entry[taxKey] !== 0).length;
-
     }
-
-    
   };
 
   const totalPropertyTax = calculateUnpaidTaxes("Property_Tax");
@@ -22,7 +18,7 @@ function ContextualExample({data}) {
 
   return (
     <div class="col-sm-6 grid-margin">
-      <div class="card">
+      <div class={`card ${theme === "light" ? "bg-lavender text-black" : ""}`}>
         <div
           class="card-body"
           style={{ height: "269px", alignItems: "center" }}

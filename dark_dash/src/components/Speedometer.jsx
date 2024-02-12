@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import ReactSpeedometer from 'react-d3-speedometer';
-import WardMeter from './wardmeter';
+import React, { useState, useEffect } from "react";
+import ReactSpeedometer from "react-d3-speedometer";
+import WardMeter from "./wardmeter";
 
-const Speedometer = ({ TaxSelected,data}) => {
+const Speedometer = ({ TaxSelected, data, theme }) => {
   // const [data, setData] = useState([]);
   const [SelectedType, setSelectedType] = useState();
   const [speedbtn, setspeedbtn] = useState(null);
@@ -15,7 +15,7 @@ const Speedometer = ({ TaxSelected,data}) => {
   const handleclick = (ward) => {
     setwardNumber(ward);
   };
-  console.log("sppedometer",wardNumber)
+  console.log("sppedometer", wardNumber);
 
   const calculatePaidTaxes = (taxKey) => {
     if (!data || data.length === 0) {
@@ -45,13 +45,16 @@ const Speedometer = ({ TaxSelected,data}) => {
     if (!data || data.length === 0) {
       return 0;
     }
-  
+
     const overallTotalTaxes = data.length;
-  
-    const overallPaidTaxes = data.filter((entry) =>
-      entry['Water_Tax'] !== 0 || entry['Garbage_Tax'] !== 0 || entry['Property_Tax'] !== 0
+
+    const overallPaidTaxes = data.filter(
+      (entry) =>
+        entry["Water_Tax"] !== 0 ||
+        entry["Garbage_Tax"] !== 0 ||
+        entry["Property_Tax"] !== 0
     ).length;
-  
+
     return calculatePercentage(overallPaidTaxes, overallTotalTaxes);
   };
   const calculateTaxTypePercentage = (taxKey) => {
@@ -66,88 +69,25 @@ const Speedometer = ({ TaxSelected,data}) => {
   };
 
   const renderSpeedometer = () => {
-
-    if(wardNumber !== null)
-    {
-      const wardDataFiltered = data.filter((entry) => entry.ward === String(wardNumber));
+    if (wardNumber !== null) {
+      const wardDataFiltered = data.filter(
+        (entry) => entry.ward === String(wardNumber)
+      );
       const totalEntries = wardDataFiltered.length;
-      const totalWaterTax = (wardDataFiltered.filter(entry => entry.Water_Tax !== 0).length)/totalEntries * 100;
-      const totalGarbageTax = (wardDataFiltered.filter(entry => entry.Garbage_Tax !== 0).length)/totalEntries * 100;;
-      const totalPropertyTax = (wardDataFiltered.filter(entry => entry.Property_Tax !== 0).length)/totalEntries * 100;
-      
-      if (TaxSelected === 'Water_Tax') {
-          return (
-            <>
-              <ReactSpeedometer
-                fluidWidth={false}
-                responsive={true}
-                minValue={0}
-                maxValue={100}
-                value={totalWaterTax}
-                needleColor="#2F323A"
-                segments={5}
-                startColor="#26A1EB"
-                endColor="#26D974"
-                ringWidth={15}
-              />
-              <p >Ward {wardNumber} Water Tax paid <h1>{totalWaterTax.toFixed(2)}%</h1></p>
-            </>
-          );
-        } else if (TaxSelected === 'Garbage_Tax') {
-          return (
-            <>
-              <ReactSpeedometer
-                fluidWidth={false}
-                responsive={true}
-                minValue={0}
-                maxValue={100}
-                value={totalGarbageTax}
-                needleColor="#2F323A"
-                segments={5}
-                startColor="#26A1EB"
-                endColor="#26D974"
-                ringWidth={15}
-              />
-              <p >Ward {wardNumber} Garbage Tax paid <h1>{totalGarbageTax.toFixed(2)}%</h1></p>
-            </>
-          );
-        } else if (TaxSelected === 'Property_Tax') {
-          return (
-            <>
-              <ReactSpeedometer
-                fluidWidth={false}
-                responsive={true}
-                minValue={0}
-                maxValue={100}
-                value={totalPropertyTax}
-                needleColor="#2F323A"
-                segments={5}
-                startColor="#26A1EB"
-                endColor="#26D974"
-                ringWidth={15}
-              />
-              <p >Ward {wardNumber}Property Tax paid <h1>{totalPropertyTax.toFixed(2)}%</h1></p>
-            </>
-          );
-        } else   {
-          return (
-            <>
-              <ReactSpeedometer
-                fluidWidth={false}
-                responsive={true}
-                minValue={0}
-                maxValue={100}
-                value={calculateOverallPaidPercentage()}
-                needleColor="#2F323A"
-                segments={5}
-                startColor="#26A1EB"
-                endColor="#26D974"
-                ringWidth={15}
-              />
-              <p >Overall Tax paid <h1>{calculateOverallPaidPercentage().toFixed(2)}%</h1></p>
-            </>)
-        }     }
-    else  if (TaxSelected === 'Water_Tax') {
+      const totalWaterTax =
+        (wardDataFiltered.filter((entry) => entry.Water_Tax !== 0).length /
+          totalEntries) *
+        100;
+      const totalGarbageTax =
+        (wardDataFiltered.filter((entry) => entry.Garbage_Tax !== 0).length /
+          totalEntries) *
+        100;
+      const totalPropertyTax =
+        (wardDataFiltered.filter((entry) => entry.Property_Tax !== 0).length /
+          totalEntries) *
+        100;
+
+      if (TaxSelected === "Water_Tax") {
         return (
           <>
             <ReactSpeedometer
@@ -155,17 +95,20 @@ const Speedometer = ({ TaxSelected,data}) => {
               responsive={true}
               minValue={0}
               maxValue={100}
-              value={calculateTaxTypePercentage('Water_Tax')}
+              value={totalWaterTax}
               needleColor="#2F323A"
               segments={5}
               startColor="#26A1EB"
               endColor="#26D974"
               ringWidth={15}
             />
-            <p >Water Tax paid <h1>{calculateTaxTypePercentage('Water_Tax').toFixed(2)}%</h1></p>
+            <p>
+              Ward {wardNumber} Water Tax paid{" "}
+              <h1>{totalWaterTax.toFixed(2)}%</h1>
+            </p>
           </>
         );
-      } else if (TaxSelected === 'Garbage_Tax') {
+      } else if (TaxSelected === "Garbage_Tax") {
         return (
           <>
             <ReactSpeedometer
@@ -173,17 +116,20 @@ const Speedometer = ({ TaxSelected,data}) => {
               responsive={true}
               minValue={0}
               maxValue={100}
-              value={calculateTaxTypePercentage('Garbage_Tax')}
+              value={totalGarbageTax}
               needleColor="#2F323A"
               segments={5}
               startColor="#26A1EB"
               endColor="#26D974"
               ringWidth={15}
             />
-            <p >Garbage Tax paid <h1>{calculateTaxTypePercentage('Garbage_Tax').toFixed(2)}%</h1></p>
+            <p>
+              Ward {wardNumber} Garbage Tax paid{" "}
+              <h1>{totalGarbageTax.toFixed(2)}%</h1>
+            </p>
           </>
         );
-      } else if (TaxSelected === 'Property_Tax') {
+      } else if (TaxSelected === "Property_Tax") {
         return (
           <>
             <ReactSpeedometer
@@ -191,17 +137,20 @@ const Speedometer = ({ TaxSelected,data}) => {
               responsive={true}
               minValue={0}
               maxValue={100}
-              value={calculateTaxTypePercentage('Property_Tax')}
+              value={totalPropertyTax}
               needleColor="#2F323A"
               segments={5}
               startColor="#26A1EB"
               endColor="#26D974"
               ringWidth={15}
             />
-            <p >Property Tax paid <h1>{calculateTaxTypePercentage('Property_Tax').toFixed(2)}%</h1></p>
+            <p>
+              Ward {wardNumber}Property Tax paid{" "}
+              <h1>{totalPropertyTax.toFixed(2)}%</h1>
+            </p>
           </>
         );
-      } else   {
+      } else {
         return (
           <>
             <ReactSpeedometer
@@ -216,125 +165,215 @@ const Speedometer = ({ TaxSelected,data}) => {
               endColor="#26D974"
               ringWidth={15}
             />
-            <p >Overall Tax paid <h1>{calculateOverallPaidPercentage().toFixed(2)}%</h1></p>
-          </>)
-      } 
-      
+            <p>
+              Overall Tax paid{" "}
+              <h1>{calculateOverallPaidPercentage().toFixed(2)}%</h1>
+            </p>
+          </>
+        );
+      }
+    } else if (TaxSelected === "Water_Tax") {
+      return (
+        <>
+          <ReactSpeedometer
+            fluidWidth={false}
+            responsive={true}
+            minValue={0}
+            maxValue={100}
+            value={calculateTaxTypePercentage("Water_Tax")}
+            needleColor="#2F323A"
+            segments={5}
+            startColor="#26A1EB"
+            endColor="#26D974"
+            ringWidth={15}
+          />
+          <p>
+            Water Tax paid{" "}
+            <h1>{calculateTaxTypePercentage("Water_Tax").toFixed(2)}%</h1>
+          </p>
+        </>
+      );
+    } else if (TaxSelected === "Garbage_Tax") {
+      return (
+        <>
+          <ReactSpeedometer
+            fluidWidth={false}
+            responsive={true}
+            minValue={0}
+            maxValue={100}
+            value={calculateTaxTypePercentage("Garbage_Tax")}
+            needleColor="#2F323A"
+            segments={5}
+            startColor="#26A1EB"
+            endColor="#26D974"
+            ringWidth={15}
+          />
+          <p>
+            Garbage Tax paid{" "}
+            <h1>{calculateTaxTypePercentage("Garbage_Tax").toFixed(2)}%</h1>
+          </p>
+        </>
+      );
+    } else if (TaxSelected === "Property_Tax") {
+      return (
+        <>
+          <ReactSpeedometer
+            fluidWidth={false}
+            responsive={true}
+            minValue={0}
+            maxValue={100}
+            value={calculateTaxTypePercentage("Property_Tax")}
+            needleColor="#2F323A"
+            segments={5}
+            startColor="#26A1EB"
+            endColor="#26D974"
+            ringWidth={15}
+          />
+          <p>
+            Property Tax paid{" "}
+            <h1>{calculateTaxTypePercentage("Property_Tax").toFixed(2)}%</h1>
+          </p>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <ReactSpeedometer
+            fluidWidth={false}
+            responsive={true}
+            minValue={0}
+            maxValue={100}
+            value={calculateOverallPaidPercentage()}
+            needleColor="#2F323A"
+            segments={5}
+            startColor="#26A1EB"
+            endColor="#26D974"
+            ringWidth={15}
+          />
+          <p>
+            Overall Tax paid{" "}
+            <h1>{calculateOverallPaidPercentage().toFixed(2)}%</h1>
+          </p>
+        </>
+      );
     }
-  
+  };
+
   return (
     <>
-    <div class="col-sm-6 grid-margin">
-              <div class="card" >
-                <div
-                  class="row"
-                  style={{
-                    justifyContent: "center",
-                    gap: "8px",
-                    marginBottom: "8px",
-                    marginTop: "8px",
-                  }}
-                >
-                  <button
-                    class="btn btn-primary btn-sm"
-                    style={{ width: "100px" }}
-                    onClick={() => {
-                      handlebtn("");
-                    }}
-                  >
-                    Overall Tax
-                  </button>
-                  <button
-                    class="btn btn-primary btn-sm"
-                    style={{ width: "100px" }}
-                    onClick={() => {
-                      handlebtn("Garbage_Tax");
-                    }}
-                  >
-                    Garbage Tax
-                  </button>
-                  <button
-                    class="btn btn-primary btn-sm"
-                    style={{ width: "100px" }}
-                    onClick={() => {
-                      handlebtn("Property_Tax");
-                    }}
-                  >
-                    Property Tax
-                  </button>
-                  <button
-                    class="btn btn-primary btn-sm"
-                    style={{ width: "100px" }}
-                    onClick={() => {
-                      handlebtn("Water_Tax");
-                    }}
-                  >
-                    Water Tax
-                  </button>
-                </div>
-                <div
-                  class="card-body"
-                  style={{
-                    width: "300px",
-                    height: "229px",
-                    display: "flex",
+      <div class="col-sm-6 grid-margin">
+        <div
+          class={`card ${theme === "light" ? "bg-lavender text-black" : ""}`}
+        >
+          <div
+            class="row"
+            style={{
+              justifyContent: "center",
+              gap: "8px",
+              marginBottom: "8px",
+              marginTop: "8px",
+            }}
+          >
+            <button
+              class="btn btn-primary btn-sm"
+              style={{ width: "100px" }}
+              onClick={() => {
+                handlebtn("");
+              }}
+            >
+              Overall Tax
+            </button>
+            <button
+              class="btn btn-primary btn-sm"
+              style={{ width: "100px" }}
+              onClick={() => {
+                handlebtn("Garbage_Tax");
+              }}
+            >
+              Garbage Tax
+            </button>
+            <button
+              class="btn btn-primary btn-sm"
+              style={{ width: "100px" }}
+              onClick={() => {
+                handlebtn("Property_Tax");
+              }}
+            >
+              Property Tax
+            </button>
+            <button
+              class="btn btn-primary btn-sm"
+              style={{ width: "100px" }}
+              onClick={() => {
+                handlebtn("Water_Tax");
+              }}
+            >
+              Water Tax
+            </button>
+          </div>
+          <div
+            class="card-body"
+            style={{
+              width: "300px",
+              height: "229px",
+              display: "flex",
 
-                    borderRadius: "5px",
-                    justifyContent: "center",
-                    position: "relative",
-                    margin: "auto",
-                  }}
-                >
-                   {renderSpeedometer()}
-                  <div className="container">
-                    <div className="row">
-                      <div className="col-lg-12">
-                        {/* Scrollable Menu */}
-                        <div className="btn-group">
-                          <button
-                            type="button"
-                            className="btn btn-default dropdown-toggle"
-                            data-toggle="dropdown"
-                            style={{ pointer: "arrow" }}
-                          >
-                            Ward List
-                          </button>
-                          <ul
-                            className="dropdown-menu scrollable-menu"
-                            role="menu"
-                            style={{
-                              height: "auto",
-                              maxHeight: "200px",
-                              overflowX: "hidden",
+              borderRadius: "5px",
+              justifyContent: "center",
+              position: "relative",
+              margin: "auto",
+            }}
+          >
+            {renderSpeedometer()}
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-12">
+                  {/* Scrollable Menu */}
+                  <div className="btn-group">
+                    <button
+                      type="button"
+                      className={`${
+                        theme === "light"
+                          ? "btn btn-default dropdown-toggle text-black"
+                          : "btn btn-default dropdown-toggle"
+                      }`}
+                      data-toggle="dropdown"
+                      style={{ pointer: "arrow" }}
+                    >
+                      Ward List
+                    </button>
+                    <ul
+                      className="dropdown-menu scrollable-menu"
+                      role="menu"
+                      style={{
+                        height: "auto",
+                        maxHeight: "200px",
+                        overflowX: "hidden",
+                      }}
+                    >
+                      {[...Array(10).keys()].map((index) => (
+                        <li key={index} style={{ cursor: "pointer" }}>
+                          <option
+                            value={index + 1}
+                            onClick={() => {
+                              handleclick(`${index + 1}`);
                             }}
+                            style={{ pointer: "default" }}
                           >
-                            {[...Array(10).keys()].map((index) => (
-                              <li key={index} style={{ cursor: "pointer" }}>
-                                <option
-                                  value={index + 1}
-                                  onClick={() => {
-                                    handleclick(`${index + 1}`);
-                                  }}
-                                  style={{ pointer: "default" }}
-                                >
-                                  ward {index + 1}{" "}
-                                </option>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>{" "}
+                            ward {index + 1}{" "}
+                          </option>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </div>
-
-     
-
-
+            </div>{" "}
+          </div>
+        </div>
+      </div>
     </>
   );
-  }
+};
 
 export default Speedometer;

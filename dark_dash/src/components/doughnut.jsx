@@ -4,8 +4,7 @@ import { Doughnut as DoughnutChart } from "react-chartjs-2";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export function DoughnutComponent({data }) {
-
+export function DoughnutComponent({ data, theme }) {
   // console.log(data);
   const handleButtonClick = (type) => {
     setSelectedType(type);
@@ -18,7 +17,6 @@ export function DoughnutComponent({data }) {
   // //     try {
   // //       const response = await fetch("http://localhost:8080/maps/markers");
 
-        
   // //       if (!response.ok) {
   // //         throw new Error(`HTTP error! Status: ${response.status}`);
   // //       }
@@ -99,27 +97,51 @@ export function DoughnutComponent({data }) {
 
   const doughnutData = getChartData();
 
-  
-  
-  
-    return (
-      <div className="col-4 grid-margin">
-              <div className="card">
-    <div
-                  class="row"
-                  style={{justifyContent: "center",gap: "8px",marginBottom: "8px",marginTop: "8px"}}
-                >
-                  <button type="button" class="btn btn-primary btn-sm" style={{ width: "80px" }} onClick={() => {handleButtonClick("Paid")}}>
-                    Paid
-                  </button>
-                  <button type="button" class="btn btn-primary btn-sm" style={{ width: "80px" }} onClick={() => {handleButtonClick("UnPaid")}}>
-                    Unpaid
-                  </button>
-                </div>
-    <DoughnutChart data={doughnutData} />
+  return (
+    <div className="col-4 grid-margin">
+      <div
+        className={`card ${theme === "light" ? "bg-lavender text-black" : ""}`}
+      >
+        <div
+          class="row"
+          style={{
+            justifyContent: "center",
+            gap: "8px",
+            marginBottom: "8px",
+            marginTop: "8px",
+          }}
+        >
+          <button
+            type="button"
+            class={`${
+              theme === "light"
+                ? "btn btn-primary btn-sm text-black"
+                : "btn btn-primary btn-sm "
+            }`}
+            style={{ width: "80px" }}
+            onClick={() => {
+              handleButtonClick("Paid");
+            }}
+          >
+            Paid
+          </button>
+          <button
+            type="button"
+            class={`${
+              theme === "light"
+                ? "btn btn-primary btn-sm text-black"
+                : "btn btn-primary btn-sm "
+            }`}
+            style={{ width: "80px" }}
+            onClick={() => {
+              handleButtonClick("UnPaid");
+            }}
+          >
+            Unpaid
+          </button>
+        </div>
+        <DoughnutChart data={doughnutData} />
+      </div>
     </div>
-    </div>
-      
-    )
-
+  );
 }

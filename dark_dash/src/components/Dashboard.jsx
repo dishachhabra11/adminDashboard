@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { LineGraph } from "./LineGraph";
 import Piechart from "./Piechart";
 import RegionTable from "./RegionTable";
 import Table from "./ranked";
 import UnpaidTable from "./LeastRanked";
 import ProgressBar from "./ProgressBar";
-import { useState } from "react";
 import ContextualExample from "./ProgressBar";
 import { DoughnutComponent } from "./doughnut";
 import Speedometer from "./Speedometer";
@@ -16,13 +15,15 @@ import Card from "./Card";
 import dishaa from "./dishaa";
 import IndividualWard from "./IndividualWard";
 import IndividualWardTable from "./IndividualWardTable";
+import { useTheme } from "./ThemeContext";
 
 const Dashboard = () => {
   const [SelectedType, setSelectedType] = useState();
   const [speedbtn, setspeedbtn] = useState(null);
-
   const [wardNumber, setwardNumber] = useState(null);
   const [datas, setDatas] = useState(null);
+
+  const { theme } = useTheme();
 
   useEffect(() => {
     async function fetchDataAndPopulateCards() {
@@ -40,6 +41,7 @@ const Dashboard = () => {
         console.error("Error fetching data:", error);
       }
     }
+
     fetchDataAndPopulateCards();
   }, []);
 
@@ -55,43 +57,51 @@ const Dashboard = () => {
     (total, entry) => total + entry.Property_Tax,
     0
   );
-  const handleButtonClick = (type) => {
-    setSelectedType(type);
-  };
-
   const totalRevenue = totalGarbageTax + totalPropertyTax + totalWaterTax;
 
-  console.log("The garbage tax is", totalGarbageTax);
-  console.log("TP", totalPropertyTax);
-  console.log("TW", totalWaterTax);
-  console.log("TR", totalRevenue);
-  console.log(datas);
   return (
     <div style={{ cursor: "pointer", userSelect: "none" }}>
-      <div class="main-panel">
-        <div class="content-wrapper">
-          <Card TG={totalGarbageTax} TW={totalWaterTax} TP={totalPropertyTax} />
+      <div
+        className={`main-panel ${theme === "light" ? "bg-floralwhite" : ""}`}
+      >
+        <div
+          className={`content-wrapper ${
+            theme === "light" ? "bg-floralwhite" : ""
+          }`}
+        >
+          <Card
+            TG={totalGarbageTax}
+            TW={totalWaterTax}
+            TP={totalPropertyTax}
+            theme={theme}
+          />
           <div class="row">
-            <RegionTable />
-            <MapComponent />
-            <IndividualWardTable datas={datas} wardNumber="2" />
+            <RegionTable theme={theme} />
+            <MapComponent theme={theme} />
+            <IndividualWardTable theme={theme} datas={datas} wardNumber="2" />
           </div>
-          <div class="row" >
-            <ContextualExample data={datas} />
-            <Speedometer TaxSelected={speedbtn} wardNumber={wardNumber} data={datas}/>{" "}
+          <div class="row">
+            <ContextualExample theme={theme} data={datas} />
+            <Speedometer
+              theme={theme}
+              TaxSelected={speedbtn}
+              wardNumber={wardNumber}
+              data={datas}
+            />{" "}
           </div>
 
           <div class="row">
-                  <LineGraph data={datas} />
-                  <DoughnutComponent
-                  data={datas}
-                  SetType={SelectedType}
-                /> 
+            <LineGraph theme={theme} data={datas} />
+            <DoughnutComponent
+              theme={theme}
+              data={datas}
+              SetType={SelectedType}
+            />
           </div>
           <div class="row">
-            <Table />
-            <UnpaidTable />
-            <WardMap datas={datas} />
+            <Table theme={theme} />
+            <UnpaidTable theme={theme} />
+            <WardMap theme={theme} datas={datas} />
             <dishaa />
           </div>
         </div>
